@@ -1,13 +1,15 @@
-### List all messages 
+### List All Messages
 GET http://localhost:3000/messages
+Accept: application/json
 
-### Create a new message 
-POST htpp://localhost:3000/messages
-content-type: application/json
+### Create a New Message
+POST http://localhost:3000/messages
+Content-Type: application/json
 
 {
-  "content": "hi there"
+  "content": "Hello, this is a new message"
 }
 
-## Get a particular message
+### Get a Specific Message
 GET http://localhost:3000/messages/1
+Accept: application/json
