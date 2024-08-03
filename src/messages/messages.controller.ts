@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { CreateMessageDto } from './dtos/create-message.dto';
 
 @Controller('messages')
 // o controller é um class decorator porque está sendo aplicado a uma classe
@@ -10,7 +11,7 @@ export class MessagesController {
   }
 
   @Post()
-  createMessage(@Body() body: any) {
+  createMessage(@Body() body: CreateMessageDto) {
     // body para extrair dados do corpo da requisição http
     console.log(body);
   }
