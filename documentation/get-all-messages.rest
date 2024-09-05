@@ -1,0 +1,4 @@
+@url = http://localhost:3000/messages
+
+GET {{url}}
+Content-Type: application/json
