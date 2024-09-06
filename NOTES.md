@@ -9,6 +9,9 @@ O NestJS possui várias ferramentas para ajudar a lidar com requisições e estr
 - **Repository**: Acessa o banco de dados.
 - **Módulo**: Agrupa códigos relacionados.
 
+A execução segue uma cadeia onde um componente chama o próximo na ordem: 
+Pipe --> Controller --> Service --> Controller
+
 É muito comum o service e repository serem muito parecidos. O controller usa o service para obter ou manipular dados, mantendo a separação de responsabilidades e evitando acessar diretamente o repositório. Isso organiza o código e mantém a lógica de negócios separada da lógica de persistência 
 
 ## Exemplos de Uso
@@ -74,3 +77,44 @@ $ nest generate controller message/messages --flat
 1. Usa class-transformer para transformar o body em uma instancia de classe DTO 
 2. Use class-validator para validar a instancia 
 3. Se tem um erro de validação, responde imediatamente. Se não, entrega o body ao request handler
+
+## Princípio de inversão de controle (IoC)
+**Inversão de Controle (IoC)** é um conceito da engenharia de software que sugere que, para criar um código mais reutilizável e flexível, as classes não devem criar instâncias de suas próprias dependências diretamente. Em vez disso, essas dependências devem ser injetadas de fora, por meio de mecanismos como a Injeção de Dependências (Dependency Injection, DI).
+Exemplo criando instância dentro de sua dependência 
+```typescript
+export class MessagesService {
+   messagesRepo: MessagesRepository;
+
+   constructor() {
+      this.messagesRepo = new MessagesRepository();
+   }
+}
+```
+Bom: Cria uma instância do serviço de mensagens, passando uma cópia de uma cópia já existente do repositório. Então criamos esse repositório e sempre que quiser um service, vamos passá-lo.
+Só que ele depende especificamente de uma cópia do repositório de Messages
+```typescript
+export class MessagesService {
+   messagesRepo: MessagesRepository;
+
+   constructor(repo: MessagesRepository) {
+      this.messagesRepo = repo;
+   }
+}
+```
+Melhor: o MessagesService se torna mais flexível e desacoplado, podendo trabalhar com qualquer implementação que siga a interface esperada (Repository). Isso melhora a reutilização do código, facilita a manutenção e otimiza o desempenho, dependendo de qual implementação do repositório está sendo usada
+
+```typescript
+interface Repository {
+   findOne(id: string);
+   findAll();
+   create(content: string);
+}
+
+export class MessagesService {
+   messagesRepo: Repository;
+
+   constructor(repo: Repository) {
+      this.messagesRepo = repo
+   }
+}
+```
