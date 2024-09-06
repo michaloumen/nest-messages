@@ -118,3 +118,15 @@ export class MessagesService {
    }
 }
 ```
+
+A Injeção de Dependência está diretamente ligada ao Princípio de Inversão de Controle, mas sem adicionar complexidade excessiva ao código. O conceito central da Injeção de Dependência é o uso de um contêiner. Esse contêiner gerencia duas coisas principais: uma lista das classes e suas dependências, e uma lista das instâncias que foram criadas. Quando você inicia uma nova aplicação no NestJS, um contêiner de injeção de dependência é automaticamente configurado para gerenciar essas instâncias e dependências de forma eficiente.
+
+Fluxo do Conteiner de Injeção de Dependência
+- No início da aplicação, todas as classes são registradas no contêiner.
+- O contêiner identifica as dependências que cada classe possui.
+- Em seguida, solicitamos ao contêiner que crie uma instância de uma classe para nós.
+- O contêiner cria todas as dependências necessárias e nos fornece a instância da classe.
+- O contêiner mantém as instâncias das dependências criadas e as reutiliza quando necessário.
+
+- Vai aplicar o Injectable no repository e service mas NÃO no controller porque ele está só consumindo classes
+- No módulo vai colocar os providers, que são as coisas que podem ser usadas como depencias para outras classes

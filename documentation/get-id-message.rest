@@ -1,4 +1,4 @@
-@url = http://localhost:3000/messages/2524335
+@url = http://localhost:3000/messages/973
 
 GET {{url}}
 Content-Type: application/json

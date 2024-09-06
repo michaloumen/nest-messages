@@ -4,5 +4,5 @@ POST {{url}}
 Content-Type: application/json
 
 {
-  "content": "hi there"
+  "content": "message after adding DI"
 }
